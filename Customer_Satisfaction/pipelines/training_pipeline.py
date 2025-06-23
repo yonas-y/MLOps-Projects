@@ -8,6 +8,5 @@ from Customer_Satisfaction.steps.evaluation import evaluation
 def training_pipeline():
     x_data, y_data = import_data()
     clean_data(x_data)
-    clean_data(y_data)
     model_training(x_data)
     evaluation(x_data, y_data)

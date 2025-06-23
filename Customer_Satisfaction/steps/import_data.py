@@ -1,7 +1,9 @@
-from zenml import steps
+from zenml import step
+
 from typing import Tuple
 import logging
 import pandas as pd
+
 from Customer_Satisfaction.app.load_data import load_data_from_mongodb
 
 logger = logging.getLogger(__name__)
@@ -26,5 +28,7 @@ def import_data() -> Tuple[pd.DataFrame, pd.Series]:
     logger.info('Getting the X and y data from the df!')
     X = df.drop(columns=["review_score"])
     y = df["review_score"]
+    logger.info(f"X: {X.shape}")
+    logger.info(f"y: {y.shape}")
 
     return X, y

@@ -1,7 +1,7 @@
 from pymongo import MongoClient
 import pandas as pd
 import os
-from Customer_Satisfaction.app.config import HOST_IP, HOST_PORT, DB_NAME, COLLECTION_NAME
+from app.config import HOST_IP, HOST_PORT, DB_NAME, COLLECTION_NAME
 
 def load_data_from_mongodb(
         host: str = HOST_IP, port: int = HOST_PORT,

@@ -4,7 +4,7 @@ from typing import Tuple
 import logging
 import pandas as pd
 
-from Customer_Satisfaction.app.load_data import load_data_from_mongodb
+from app.load_data import load_data_from_mongodb
 
 logger = logging.getLogger(__name__)
 

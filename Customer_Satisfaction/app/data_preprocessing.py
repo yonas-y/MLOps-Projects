@@ -108,4 +108,20 @@ class DataPreprocessing:
 
         return train_test_split(X, y, test_size=test_size, random_state=random_state)
 
+    def data_normalization(self, X_train: pd.DataFrame, X_test: pd.DataFrame):
+        """
+        Normalizes the training and test data!.
 
+        Args:
+            X_train (pd.DataFrame): The training data.
+            X_test (pd.DataFrame): The test data.
+
+        Returns:
+            Tuple[pd.DataFrame, pd.DataFrame]: X_train_normalized, X_test_normalized
+        """
+        X_train_scaled = self.scaler.fit_transform(X_train)  # fit on train
+        X_test_scaled = self.scaler.transform(X_test)
+
+        joblib.dump(self.scaler, '../output/scaler.pkl')  # save
+
+        return X_train_scaled, X_test_scaled

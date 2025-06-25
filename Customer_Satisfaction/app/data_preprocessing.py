@@ -3,6 +3,7 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 import joblib
+import os
 
 
 class DataPreprocessing:
@@ -122,6 +123,7 @@ class DataPreprocessing:
         X_train_scaled = self.scaler.fit_transform(X_train)  # fit on train
         X_test_scaled = self.scaler.transform(X_test)
 
-        joblib.dump(self.scaler, '../output/scaler.pkl')  # save
+        os.makedirs("output", exist_ok=True)
+        joblib.dump(self.scaler, 'output/scaler.pkl')  # save
 
         return X_train_scaled, X_test_scaled

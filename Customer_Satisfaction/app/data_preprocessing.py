@@ -64,3 +64,26 @@ class DataPreprocessing:
             raise e
 
         return df_combined
+
+    def data_encoding(self, cleaned_data: pd.DataFrame) -> pd.DataFrame:
+        """
+        Encode the non-numeric values of the cleaned data.
+
+        Args:
+            cleaned_data (pd.DataFrame): The cleaned data.
+
+        Returns:
+            pd.DataFrame: The encoded data.
+        """
+        # Separate numeric and non-numeric
+        numeric_df = cleaned_data.select_dtypes(include="number")
+        non_numeric_df = cleaned_data.select_dtypes(exclude="number")
+
+        # One-hot encode non-numeric
+        encoded_array = self.encoder.fit_transform(non_numeric_df)
+        encoded_df = pd.DataFrame(encoded_array, columns=self.encoder.get_feature_names_out(non_numeric_df.columns))
+
+        # Combine both
+        encoded_final_df = pd.concat([numeric_df, encoded_df], axis=1)
+
+        return encoded_final_df

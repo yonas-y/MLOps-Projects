@@ -24,7 +24,7 @@ class DataPreprocessing:
             dataframe (pd.DataFrame): The raw input data.
         """
         self.raw_data = dataframe
-        self.label_column = "review_score"
+        self.target_column = "review_score"
         self.encoder = OneHotEncoder(sparse_output=False, handle_unknown="ignore")
         self.scaler = StandardScaler()
 
@@ -90,14 +90,12 @@ class DataPreprocessing:
 
         return encoded_final_df
 
-    def data_split(self, encoded_data: pd.DataFrame, target_column: self.label_column,
-                   test_size: float = 0.2, random_state: int = 42):
+    def data_split(self, encoded_data: pd.DataFrame, test_size: float = 0.2, random_state: int = 42):
         """
         Splits the cleaned data into training and testing sets.
 
         Args:
             encoded_data (pd.DataFrame): The cleaned and encoded data.
-            target_column (str): The column to be used as the prediction target.
             test_size (float): Fraction of the data to be used as test set.
             random_state (int): Random seed for reproducibility.
 
@@ -105,8 +103,8 @@ class DataPreprocessing:
             Tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series]: X_train, X_test, y_train, y_test
         """
 
-        X = encoded_data.drop(columns=[target_column])
-        y = encoded_data[target_column]
+        X = encoded_data.drop(columns=[self.target_column])
+        y = encoded_data[self.target_column]
 
         return train_test_split(X, y, test_size=test_size, random_state=random_state)
 

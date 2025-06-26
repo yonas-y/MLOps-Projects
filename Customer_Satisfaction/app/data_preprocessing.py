@@ -24,6 +24,7 @@ class DataPreprocessing:
             dataframe (pd.DataFrame): The raw input data.
         """
         self.raw_data = dataframe
+        self.label_column = "review_score"
         self.encoder = OneHotEncoder(sparse_output=False, handle_unknown="ignore")
         self.scaler = StandardScaler()
 
@@ -89,7 +90,7 @@ class DataPreprocessing:
 
         return encoded_final_df
 
-    def data_split(self, encoded_data: pd.DataFrame, target_column: str,
+    def data_split(self, encoded_data: pd.DataFrame, target_column: self.label_column,
                    test_size: float = 0.2, random_state: int = 42):
         """
         Splits the cleaned data into training and testing sets.

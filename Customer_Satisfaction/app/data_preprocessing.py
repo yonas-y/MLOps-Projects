@@ -4,7 +4,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 import joblib
 import os
-
+from typing import Tuple
 
 class DataPreprocessing:
     """
@@ -12,8 +12,18 @@ class DataPreprocessing:
 
     Methods
     -------
-    preprocess(df: pd.DataFrame) -> pd.DataFrame
-        Perform preprocessing steps like handling missing values, dropping duplicates, etc.
+    data_cleaning() -> pd.DataFrame
+        Perform data cleaning procedure such as dropping duplicates, filling missing values,
+        and extracting numeric only columns.
+
+    data_encoding(pd.DataFrame) -> pd.DataFrame:
+        Encode the non-numeric values of the cleaned data using a OneHotEncoder.
+
+    data_split(pd.DataFrame, test_size, random_state):
+        Splits the cleaned and encoded data into training and test sets.
+
+    data_normalization(pd.DataFrame, pd.DataFrame) -> Tuple[pd.DataFrame, pd.DataFrame]:
+        Normalizes the training and test data!.
     """
 
     def __init__(self, dataframe: pd.DataFrame):
@@ -108,7 +118,8 @@ class DataPreprocessing:
 
         return train_test_split(X, y, test_size=test_size, random_state=random_state)
 
-    def data_normalization(self, X_train: pd.DataFrame, X_test: pd.DataFrame):
+    def data_normalization(self, X_train: pd.DataFrame, X_test: pd.DataFrame) -> Tuple[
+        pd.DataFrame, pd.DataFrame]:
         """
         Normalizes the training and test data!.
 
